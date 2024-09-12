@@ -1,0 +1,63 @@
+﻿@model DataAccessLayer.Entity.Parceldetails
+
+@{
+    ViewData["Title"] = "add";
+}
+
+<h1>add</h1>
+
+<h4>Parceldetails</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+               
+                <input type="hidden" asp-for="ParcelID" class="form-control" />
+               
+            </div>
+            <div class="form-group">
+                <label asp-for="FromAddress" class="control-label"></label>
+                <input asp-for="FromAddress" class="form-control" />
+                <span asp-validation-for="FromAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TOAddress" class="control-label"></label>
+                <input asp-for="TOAddress" class="form-control" />
+                <span asp-validation-for="TOAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NetWeight" class="control-label"></label>
+                <input asp-for="NetWeight" class="form-control" />
+                <span asp-validation-for="NetWeight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParcelServiceName" class="control-label"></label>
+                <input asp-for="ParcelServiceName" class="form-control" />
+                <span asp-validation-for="ParcelServiceName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -2,6 +2,7 @@ using DataAccessLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -16,6 +17,8 @@ namespace ParcelDetailsMVC
     {
         public Startup(IConfiguration configuration)
         {
+            var connection = Configuration.GetConnectionString("DbConnection");
+            var value = configuration.GetSection("Connections:DbConnection").Value;
             Configuration = configuration;
         }
 
@@ -25,7 +28,7 @@ namespace ParcelDetailsMVC
         public void ConfigureServices(IServiceCollection services)
         {
             var connection = Configuration.GetConnectionString("DbConnection");
-
+            services.AddDbContext<Parceldetailsdbcontext>(options => options.UseSqlServer(connection));
             services.AddTransient<IParceldetailsRepository, ParceldetailsRepository>();
             services.AddControllersWithViews();
         }

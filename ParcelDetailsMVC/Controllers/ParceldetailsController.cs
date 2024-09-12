@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer;
+using DataAccessLayer.Entity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -19,30 +20,33 @@ namespace ParcelDetailsMVC.Controllers
         // GET: ParceldetailsController
         public ActionResult List()
         {
-            var result = reg.ShowAllParcel();
+            var result = reg.GetAllParcel();
             return View("list",result);
         }
 
         // GET: ParceldetailsController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(long id)
         {
-            return View();
+            var edit = reg.GetParcelByName(id);
+
+            return View("Details", edit);
         }
 
         // GET: ParceldetailsController/Create
         public ActionResult Create()
         {
-            return View();
+            return View("Add",new Parceldetails());
         }
 
         // POST: ParceldetailsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Parceldetails parce)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                reg.InsertDetails(parce);
+                return RedirectToAction(nameof(List));
             }
             catch
             {
@@ -51,19 +55,21 @@ namespace ParcelDetailsMVC.Controllers
         }
 
         // GET: ParceldetailsController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(long id)
         {
-            return View();
+            var edit = reg.GetParcelByName (id);
+            return View("Update", edit);
         }
 
         // POST: ParceldetailsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Parceldetails regs)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                reg.UpdateParcelDetails(regs);
+                return RedirectToAction(nameof(List));
             }
             catch
             {
@@ -72,19 +78,22 @@ namespace ParcelDetailsMVC.Controllers
         }
 
         // GET: ParceldetailsController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(long id)
         {
-            return View();
+            var details = reg.GetParcelByName(id);
+            return View("ConfirmDelete",details);
+
         }
 
         // POST: ParceldetailsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(long id, IFormCollection collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                reg.DeleteParcelDetails(id);
+                return RedirectToAction(nameof(List));
             }
             catch
             {

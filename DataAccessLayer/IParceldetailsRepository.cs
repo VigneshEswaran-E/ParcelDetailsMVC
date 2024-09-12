@@ -8,12 +8,11 @@ namespace DataAccessLayer
 {
     public interface IParceldetailsRepository
     {
-        public void Details(Parceldetails reg);
-        public void UpdateDetails(Parceldetails reg);
-        public void DeleteDetails(long ParcelID);
-        public List<Parceldetails> ShowAllParcel();
-        public Parceldetails ShowParcelbyName(long ParcelId);
-
+        public void InsertDetails(Parceldetails loc);
+        public List<Parceldetails> GetAllParcel();
+        public Parceldetails GetParcelByName(long id);
+        public void UpdateParcelDetails(Parceldetails loc);
+        public void DeleteParcelDetails(long loc);
 
     }
 }
